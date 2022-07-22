@@ -41,5 +41,5 @@ GrafanaFans 是由南京多位 GrafanaLabs 产品重度使用者一起发起的 
 
 - 微信公号： grafanafans
 ![qrocode_weixin](/images/qrcode_weixin.jpeg)
-- 微信群： ![qrcode.jpeg](/images/qrcode.jpeg)
+- 微信群： ![qrcode.jpeg](/images/qrcode.jpeg?213)
 - B站: [grafanafans](https://space.bilibili.com/108263255)
