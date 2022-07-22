@@ -36,3 +36,10 @@ GrafanaFans 是由南京多位 GrafanaLabs 产品重度使用者一起发起的 
   - 为什么选择
 - 实战练习
   - TODO
+
+# 联系我们
+
+- 微信公号： grafanafans
+![qrocode_weixin](/images/qrcode_weixin.jpeg)
+- 微信群： ![qrcode.jpeg](/images/qrcode.jpeg)
+- B站: [grafanafans](https://space.bilibili.com/108263255)
