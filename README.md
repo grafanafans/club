@@ -21,7 +21,10 @@ GrafanaFans 是由南京多位 GrafanaLabs 产品重度使用者一起发起的 
   - 为什么选择
 - Mimir
   - 诞生背景
+    - [Grafana CEO 访谈，为什么要用 Mimir](/mimir/basic/why.md)
   - 快速体验
+    - [Mimir 速体验(Part 1)： 使用 docker-compose 一键部署单体版集群](/mimir/play-with-grafana-mimir/step1.md)
+    - [Mimir 速体验(Part 2)： 使用 Grafana agent 实现多租户数据抓取](/mimir/play-with-grafana-mimir/step2.md)
   - 为什么选择
 - Loki
   - 诞生背景
