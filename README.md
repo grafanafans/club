@@ -28,6 +28,7 @@ GrafanaFans 是由南京多位 GrafanaLabs 产品重度使用者一起发起的 
     - [Mimir 速体验(Part 2)： 使用 Grafana agent 实现多租户数据抓取](/mimir/play-with-grafana-mimir/step2.md)
     - [Mimir 速体验(Part 3)： 通过 runtime 配置实现租户细粒度管理](/mimir/play-with-grafana-mimir/step3.md)
   - 为什么选择
+    - [Mimir 源码分析（一）：海量series chunk 同时落盘带来的挑战](/mimir/why-billion-series/01-chunk-queue.md)
 - Loki
   - 诞生背景
   - 快速体验
