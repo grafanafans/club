@@ -30,6 +30,7 @@ GrafanaFans 是由南京多位 GrafanaLabs 产品重度使用者一起发起的 
   - 为什么选择
     - [Mimir 源码分析（一）：海量series chunk 同时落盘带来的挑战](/mimir/why-billion-series/01-chunk-queue.md)
     - [Mimir 源码分析（二）：效率爆棚的分片压缩](/mimir/why-billion-series/02-%E6%95%88%E7%8E%87%E7%88%86%E6%A3%9A%E7%9A%84%E7%BA%B5%E5%90%91%E5%8E%8B%E7%BC%A9.md)
+    - [Mimir 源码分析（三）：任意时间范围乱序数据写入](/mimir/ooostore/design.md)
 - Loki
   - 诞生背景
   - 快速体验
