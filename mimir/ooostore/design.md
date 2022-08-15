@@ -299,3 +299,4 @@ func (c *LeveledCompactor) compactOOO(dest string, oooHead *OOOCompactionHead, s
 参考文章
 
 - [Support for out-of-order samples in the TSDB](https://docs.google.com/document/d/1Kppm7qL9C-BJB1j6yb6-9ObG3AbdZnFUBYPNNWwDBYM)
+- [番外篇 of 《Mimir 源码分析（三）：任意时间范围乱序数据写入》](/mimir/ooostore/prometheus_ooo.md)
