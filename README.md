@@ -35,7 +35,7 @@ GrafanaFans 是由南京多位 GrafanaLabs 产品重度使用者一起发起的 
 - Loki
   - 诞生背景
   - 快速体验
-    - [docker-compose 本地安装](/loki/play-with-grafana-loki/step1.md)
+    - [Loki 速体验(Part 1)：docker-compose 本地部署](/loki/play-with-grafana-loki/step1.md)
   - 为什么选择
 - Tempo
   - 诞生背景
