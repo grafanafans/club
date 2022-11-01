@@ -8,7 +8,6 @@ GrafanaFans 是由南京多位 GrafanaLabs 产品重度使用者一起发起的 
 
 ![path.png](/images/learn.jpeg)
 
-
 # 索引
 
 - Grafana
@@ -42,7 +41,7 @@ GrafanaFans 是由南京多位 GrafanaLabs 产品重度使用者一起发起的 
   - 快速体验
   - 为什么选择
 - 实战练习
-  - TODO
+  - [基于 Grafana LGTM 可观测性平台的快速构建](/lgtm/demo.md)
 
 # 联系我们
 
