@@ -1,0 +1,13 @@
+# This file can be used to set overrides or other runtime config.
+ingester_stream_chunks_when_using_blocks: true
+overrides:
+  avalanche:
+    ingestion_rate: 99999999
+    max_series_per_metric: 99999999
+    max_series_per_query: 99999999
+    max_metadata_per_user: 99999999
+    max_series_per_user: 99999999
+
+ingester_limits:
+  max_ingestion_rate: 99999999
+  max_inflight_push_requests: 10000
