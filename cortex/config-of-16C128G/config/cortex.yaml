@@ -1,0 +1,143 @@
+auth_enabled: true
+
+limits:
+  # These two series limits VERY QUICKLY result in HTTP 400 errors paired with this ingester error:
+  #  per-user series limit of 5000000 exceeded, please contact administrator to raise it (local limit: 5000000 global limit: 10000000 actual local limit: 3333333)
+  # Here we increase the limits by 100x from the default controller values
+  max_global_series_per_user: 1000000000 
+  # controller: 10000000
+  max_series_per_user: 500000000 
+  # controller: 5000000
+  # If we go even further, we start seeing another bottleneck: HTTP 503 errors paired with this distributor error:
+  #  ingestion rate limit (100000) exceeded while adding 2000 samples and 0 metadata
+  # Here we increase the limit by 100x from the default controller value
+  ingestion_rate: 100000000 
+  # controller: 100000, default: 25000
+  # With higher cardinality test data (avalanche: --series-count), we also need to increase this limit.
+  max_series_per_metric: 50000000 
+  # default: 50000
+  # When testing metrics with LOTS of labels, we need to increase this limit.
+  max_label_names_per_series: 100000 
+  # default: 30 (testing up to 10k, but leaving plenty of headroom)    
+
+distributor:
+  max_recv_msg_size: 1048576002
+    # Avoid risk of OOMing if the ingesters are falling behind or down
+  instance_limits:
+    max_inflight_push_requests: 10000
+  shard_by_all_labels: true
+  pool:
+    health_check_ingesters: true
+   
+
+memberlist:
+  node_name: "cortex-1"
+  bind_port: 7946
+  join_members:
+    - 10.177.179.117:7947
+  abort_if_cluster_join_fails: false
+  rejoin_interval: 5s
+ingester_client:
+  grpc_client_config:
+    # Configure the client to allow messages up to 100MB.
+    max_recv_msg_size: 104857600
+    max_send_msg_size: 1048576001
+    grpc_compression: ""
+
+ingester:
+  lifecycler:
+    # We want to start immediately.
+    join_after: 0
+    final_sleep: 0s
+    num_tokens: 512
+
+    ring:
+      kvstore:
+        store: memberlist
+        #store: consul
+        #consul:
+        #  host: 10.177.105.71:8500
+      replication_factor: 2
+
+querier:
+  query_ingesters_within: 3h
+
+store_gateway:
+  sharding_enabled: true
+  sharding_ring:
+    replication_factor: 1
+    kvstore:
+      store: memberlist
+      #store: consul
+      #consul:
+      #  host: 10.177.105.71:8500
+
+blocks_storage:
+  backend: s3
+
+  tsdb:
+    dir: /home/service/var/data/cortex-tsdb-ingester
+    ship_interval: 1m
+    block_ranges_period: [ 2h ]
+    retention_period: 3h
+    stripe_size: 524288
+
+  bucket_store:
+    sync_dir: /home/service/var/data/cortex-tsdb-querier
+
+  s3:
+    endpoint:          xx
+    bucket_name:       xx
+    access_key_id:     xx
+    secret_access_key: xx
+    insecure:          true
+
+storage:
+  engine: blocks
+
+
+compactor:
+  compaction_interval: 30s
+  data_dir:            /home/service/var/data/cortex-compactor
+  consistency_delay:   1m
+  sharding_enabled:    true
+  sharding_ring:
+    kvstore:
+      store: memberlist
+      #store: consul
+      #consul:
+      #  host: 10.177.105.71:8500
+
+ruler:
+  enable_api: true
+  enable_sharding: true
+  poll_interval: 2s
+  ring:
+    kvstore:
+      store: memberlist
+      #store: consul
+      #consul:
+      #  host: 10.177.105.71:8500
+
+ruler_storage:
+  backend: s3
+  s3:
+    bucket_name:       xx
+    endpoint:          xx
+    access_key_id:     xx
+    secret_access_key: xx
+    insecure: true
+
+
+server:
+  # At 10k label metrics, these (barely) start to become a bottleneck (e.g. seeing 46MB payloads).
+  grpc_server_max_recv_msg_size: 419430401
+  # default: 41943040
+  grpc_server_max_send_msg_size: 419430402 
+  # default: 41943040
+# NOTE: DO NOT SET INGESTER RUNTIME LIMITS HERE.
+# They will be ignored in favor of the runtime configuration (even if that configuration is empty).
+# Add any ingester limits to cortex-runtime-config.
+
+runtime_config:
+  file: ./config/runtime.yaml
