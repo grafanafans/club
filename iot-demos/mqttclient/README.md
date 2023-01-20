@@ -1,4 +1,4 @@
-# mqtt 对接遥测塔示例
+# mqtt 对接cortex/mimir示例
 
 本示例主要演示从 mqtt 订阅消息，并将传感器上报的遥测数据经过数据转化后，写到cortex/mimir实时数据库中进行存储。
 
