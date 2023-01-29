@@ -1,0 +1,18 @@
+ubuntu22.04
+通过内核方式，编译bpftool
+1、apt install -y linux-source
+会下载操作系统对应的内核到
+/usr/src/linux-source-5.15.0
+操作系统自带的内核，无法编译bpftool
+
+2、安装依赖包
+sudo apt install build-essential libncurses-dev bison flex libssl-dev libelf-dev dwarves libcap-dev -y
+
+3、编译bpftool
+cd /usr/src/linux-source-5.15.0/linux-source-5.15.0/tools/bpf/bpftool
+
+make -C tools/bpf/bpftool
+
+sudo make install -C tools/bpf/bpftool/
+
+4、也可以将编译好的bpftool拷贝到其他同内核版本的ubuntu虚拟机直接运行。
