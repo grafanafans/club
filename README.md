@@ -14,7 +14,6 @@ GrafanaFans 是由南京多位 GrafanaLabs 产品重度使用者一起发起的 
   - 基础知识
     - 可观测性白皮书
     - 可观测性策略
-    - Grafana 面板创建指导
   - 诞生背景
   - 快速体验
   - 为什么选择
@@ -41,12 +40,14 @@ GrafanaFans 是由南京多位 GrafanaLabs 产品重度使用者一起发起的 
   - 诞生背景
   - 快速体验
   - 为什么选择
+- eBPF
+  - [如何使用 eBPF 加速云原生应用程序](/ebpf/ebpf/01.md)
 - 实战练习
   - [基于 Grafana LGTM 可观测性平台的快速构建](/lgtm/demo.md)
+  - [Arduino IoT 玩家也可以轻松实现数据可观测](/iot-demos/mqttclient/README.md)
 
 # 联系我们
 
 - 微信公号： grafanafans
 ![qrocode_weixin](/images/qrcode_weixin.jpeg)
-- 知识星球：![xingqiu](https://user-images.githubusercontent.com/1459834/187008781-78026bf7-0381-49fb-855b-0d02f35969d5.jpeg)
 - B站: [grafanafans](https://space.bilibili.com/108263255)
