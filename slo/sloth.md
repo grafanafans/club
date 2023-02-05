@@ -8,11 +8,11 @@
 
 大量 Prometheus 规则文件的生成并不容易，那我们该如何准确、高效的生成它们呢？
 
-这就是今天要向大家推荐的一个 Prometheus SLO 自动生成器 -- sloth（https://github.com/slok/sloth）。
+这就是今天要向大家推荐的一个 Prometheus SLO 生成器 -- sloth（https://github.com/slok/sloth）。
 
 ## Sloth 简介
 
-Sloth 是 GitHub 上一个开源的 Prometheus SLO 自动生成器，它采用 MWMR 的策略，支持窗口和多个告警策略的配置，另外它还提供了开箱即用的 Grafana 模板，实现多服务 SLO 统一可视化。
+Sloth 是 GitHub 上一个开源的 Prometheus SLO 自动生成器，它采用 MWMR 的策略，支持窗口和多个告警策略的配置，以及SLI 插件来简化 SLO 编写，另外它还打通了 Prometheus-Operator 并提供了开箱即用的 Grafana 模板，实现多服务 SLO 统一可视化。
 
 ### SLoth 整体架构
 
@@ -110,34 +110,30 @@ spec:
 
 ### 安装和使用
 
-1. 二进制安装和使用
+- 二进制安装和使用
 
 ```
 curl https://github.com/slok/sloth/releases/download/v0.11.0/sloth-linux-amd64 -o sloth
 chmod +x sloth
-
-./sloth generate -i ./slos/myservice.yaml -o ./rules/myservice.yaml 
+./sloth generate -i slos/myservice.yaml -o rules/myservice.yaml 
 ```
 
 国内从 github 下载资源较慢，大家可以使用容器进行安装。
 
-2. docker 安装和使用 
+- Docker 安装和使用 
 
 ```
-
 # 如果 ghcr.io 镜像无法拉取，请使用 ghcr.dockerproxy.com 代理
 docker pull ghcr.io/slok/sloth
-
-docker run --rm --name sloth -v=$(pwd):/sloth ghcr.io/slok/sloth  generate -i /sloth/slos/myservice.yaml -o /sloth/rules/myservice.yaml 
+docker run --rm --name sloth -v=$(pwd):/sloth ghcr.io/slok/sloth generate -i /sloth/slos/myservice.yaml -o /sloth/rules/myservice.yaml 
 ```
 
-3. K8s 安装和使用
+- K8s 安装和使用
 
 ```
 curl https://raw.githubusercontent.com/slok/sloth/v0.11.0/pkg/kubernetes/gen/crd/sloth.slok.dev_prometheusservicelevels.yaml -o sloth.slok.dev_prometheusservicelevels.yaml
 # CRD 安装
 kubectl apply -f ./sloth.slok.dev_prometheusservicelevels.yaml
-
 curl https://raw.githubusercontent.com/slok/sloth/main/deploy/kubernetes/raw/sloth.yaml -o sloth.yaml
 
 $ kubectl create ns monitoring
@@ -161,14 +157,55 @@ $ kubectl apply -f ./examples/k8s-getting-started.yml
 
 ## 实战练习
 
-本示例流程如下图：
+### 示例流程
 
-![sloth-demo.png](./sloth.png)
+整个流程如下图：
+
+![sloth-demo.png](./sloth-demo.png)
 
 流程说明：
 
-1. 创建一个叫做 MyService 的 HTTP 服务，该服务通过暴露的接口模拟不同错误预算消耗率。
-2. 部署 Prometheus 收集 MyService 的指标。
-3. 使用 sloth cli 自动生成 SLO 相关的规则文件。
-4. Prometheus 动态加载自动生成的规则文件。
-5. Grafana 通过导入 sloth 预设的模版，进行 MyService SLO 的可视化。
+1. 使用 sloth cli 自动生成 SLO 相关的规则文件。
+2. 创建一个叫做 MyService 的 HTTP 服务，该服务通过暴露的接口可以设置不同错误预算消耗率。
+3. 部署 Prometheus 收集 MyService 的指标，并加载 sloth 自动生成的 rules 配置文件。
+4. Grafana 通过导入 sloth 预设的模版，进行 MyService SLO 的可视化。
+
+
+### 程序运行及效果
+
+示例程序已提交到 https://github.com/grafanafans/play-with-sloth 仓库，欢迎查看。
+
+
+#### 启动程序
+
+```
+
+git clone https://github.com/grafanafans/play-with-sloth.git
+make generate // 使用 sloth cli 生成 myservice 的 rules
+make start 
+```
+
+#### Grafana 导入 sloth 看板
+
+使用导入创建的方式新增 slos 相关看板，导入的看板 id 为 14348 和 14643。
+
+
+#### 设置 MyService 错误率
+
+```
+curl http://localhost:8080/errrate?value=0.005
+```
+
+当设置错误率为 0.5%（SLO 0.1%的5倍），其看板内容大致为：
+
+![sloth-dashboard.png](./sloth-dashboard.png)
+
+## 总结
+
+本文主要讲解如何围绕 sloth 进行 SLO 建设，使用它不仅可以高效的生成大量 Prometheus rules 配置文件，还可以通过开箱即用的统一看板对多个服务的 SLO 进行观测。另外 sloth 提供的 k8s controller 能够无缝与 Prometheus Operator 集成，方便云原生的用户进行使用，感兴趣的小伙伴可以试试。
+
+- 基于 SLO 告警（Part 1）：基础概念
+- 基于 SLO 告警（Part 2）：为什么使用 MWMB 方法
+- 基于 SLO 告警（Part 3）：开源项目 sloth 使用
+- 基于 SLO 告警（Part 4）：开源项目 pyrra 使用
+- 基于 SLO 告警（Part 5）：SLO 多租户与服务化
