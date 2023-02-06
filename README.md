@@ -42,6 +42,10 @@ GrafanaFans 是由南京多位 GrafanaLabs 产品重度使用者一起发起的 
   - 为什么选择
 - eBPF
   - [如何使用 eBPF 加速云原生应用程序](/ebpf/ebpf/01.md)
+- 基于 SLO 告警
+  - [基于SLO告警（part 1）：基础](/slo/basic.md)
+  - [基于SLO告警（part 2）：为什么使用 MWMR 方法](/slo/mwmb.md)
+  - [基于SLO告警（part 3）：开源项目 sloth 使用](/slo/sloth.md)
 - 实战练习
   - [基于 Grafana LGTM 可观测性平台的快速构建](/lgtm/demo.md)
   - [Arduino IoT 玩家也可以轻松实现数据可观测](/iot-demos/mqttclient/README.md)
