@@ -1,0 +1,6 @@
+backend: "https://xxx/api/v1/push"
+backendtoken: "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOiJlc3A4MjY2IiwidmVyc2lvbiI6MX0" 
+mqtt_broker: "tcp://mqtt.xxx:1883"
+mqtt_username: "mqtt"
+mqtt_passwd: "xxxx"
+mqtt_topic: "/home/id/sensordata"  
