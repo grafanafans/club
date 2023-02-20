@@ -1,5 +1,6 @@
 # esp8266读取modbus设备数据
-整理流程图：
+整理流程图：  
+![image](https://user-images.githubusercontent.com/41465048/220004955-c8195e25-63ee-46ff-acb1-781457578f3f.png)
 
 
 # 环境准备
